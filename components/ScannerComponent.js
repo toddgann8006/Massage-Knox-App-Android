@@ -94,9 +94,9 @@ class Scanner extends Component {
         this.setState({ scanned: true });
         if (data === hui && newuser.length < 1) {
             return this.handleNewuser()
-        } else if (data === hui && rewards.length < 7) {
+        } else if (data === hui && rewards.length < 6) {
             return this.handleReward()
-        } else if (data === hui && rewards.length >= 7) {
+        } else if (data === hui && rewards.length >= 6) {
             return this.resetRewards()
         } else {
             console.log('ok')
