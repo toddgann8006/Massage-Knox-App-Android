@@ -1,16 +1,43 @@
 import React, { Component } from "react";
-import { ScrollView, View, Image, StyleSheet, Linking, TouchableOpacity } from 'react-native';
-import { Text } from 'react-native-elements'
+import { ScrollView, View, Image, StyleSheet, Linking, TouchableOpacity, Modal, Button, TextInput, Alert } from 'react-native';
+import { Text } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { postEmail } from "../redux/ActionCreators";
+
+const mapStateToProps = state => {
+    return {
+        email: state.email
+    };
+};
+
+const mapDispatchToProps = {
+    postEmail: (email) => (postEmail(email))
+};
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showModal: true,
+            email: ""
+        }
+    }
 
-    static navigationOptions = {
-        title: 'Home'
+    toggleModal() {
+        this.setState({ showModal: !this.state.showModal });
+    }
+
+    handleEmail() {
+        const email = this.state.email
+        this.props.postEmail(email)
+        this.toggleModal()
     }
 
     render() {
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.container}
+                keyboardShouldPersistTaps='handled'
+            >
                 <Image
                     source={require('./images/logo.png')}
                     resizeMode='contain'
@@ -78,6 +105,42 @@ class Home extends Component {
                 <Text style={styles.hours}>
                     Saturday: 10-6
                 </Text>
+                <Modal
+                    animationType={'slide'}
+                    transparent={false}
+                    visible={this.state.showModal}
+                    onRequestClose={() => this.toggleModal()}
+                >
+                    <View style={styles.modal}>
+                        <Text>Hello World!</Text>
+                        <TextInput
+                            style={{ height: 80, fontSize: 20 }}
+                            value={this.state.email}
+                            onChangeText={(email) =>
+                                this.setState({ email: email })
+                            }
+                            ref={input => { this.textInput = input }}
+                            returnKeyType="go"
+                        />
+                        <Button
+                            onPress={() => {
+                                Alert.alert(
+                                    "Thanks For Registering",
+                                    "Start Earning Rewards Now",
+                                    [
+                                        {
+                                            text: 'OK',
+                                            onPress: () => this.handleEmail()
+                                        },
+                                    ],
+                                    { cancelable: false }
+                                );
+                            }}
+                            color='#5637DD'
+                            title='Register'
+                        />
+                    </View>
+                </Modal>
             </ScrollView>
         )
     }
@@ -130,7 +193,23 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 12,
         marginVertical: 30
+    },
+    modal: {
+        justifyContent: 'center',
+        margin: 20
+    },
+    modalTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        backgroundColor: '#5637DD',
+        textAlign: 'center',
+        color: '#fff',
+        marginBottom: 20
+    },
+    modalText: {
+        fontSize: 18,
+        margin: 10
     }
 })
 
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

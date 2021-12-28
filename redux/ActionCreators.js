@@ -3,7 +3,7 @@ import * as ActionTypes from './ActionTypes';
 export const addNewuser = newuser => ({
     type: ActionTypes.ADD_NEWUSER,
     payload: newuser
-})
+});
 
 export const postNewuser = newuser => dispatch => {
     const newUserReward = newuser
@@ -11,6 +11,19 @@ export const postNewuser = newuser => dispatch => {
     setTimeout(() => {
         dispatch(addNewuser(newUserReward))
     });
+};
+
+export const addEmail = email => ({
+    type: ActionTypes.ADD_EMAIL,
+    payload: email
+});
+
+export const postEmail = email => dispatch => {
+    const newEmail = email
+
+    setTimeout(() => {
+        dispatch(addEmail(newEmail));
+    }, 2000);
 };
 
 export const addReward = reward => ({

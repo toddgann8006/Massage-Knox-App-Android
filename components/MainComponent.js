@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Constants from 'expo-constants';
-import { View, Platform } from 'react-native';
+import { View, Platform, StyleSheet } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation';
@@ -13,21 +14,35 @@ import Rewards from "./RewardsComponent";
 import Scanner from "./ScannerComponent";
 import { connect } from 'react-redux';
 
+const styles = StyleSheet.create({
+    stackIcon: {
+        marginLeft: 10,
+        color: 'white',
+        fontSize: 24
+    }
+});
+
 const HomeNavigator = createStackNavigator(
     {
         Home: { screen: Home }
     },
     {
         initialRouteName: 'Home',
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#000000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            }
-        }
+            },
+            headerLeft: <Icon
+                name='bars'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        })
     }
 );
 
@@ -37,15 +52,21 @@ const AboutNavigator = createStackNavigator(
     },
     {
         initialRouteName: 'About',
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#000000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            }
-        }
+            },
+            headerLeft: <Icon
+                name='bars'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        })
     }
 );
 
@@ -55,15 +76,21 @@ const ServicesNavigator = createStackNavigator(
     },
     {
         initialRouteName: 'Services',
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#000000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            }
-        }
+            },
+            headerLeft: <Icon
+                name='bars'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        })
     }
 );
 
@@ -73,15 +100,21 @@ const AppointmentsNavigator = createStackNavigator(
     },
     {
         initialRouteName: 'Appointments',
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#000000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            }
-        }
+            },
+            headerLeft: <Icon
+                name='bars'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        })
     }
 );
 
@@ -91,34 +124,45 @@ const GiftcardsNavigator = createStackNavigator(
     },
     {
         initialRouteName: 'Giftcards',
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#000000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            }
-        }
+            },
+            headerLeft: <Icon
+                name='bars'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        })
     }
 );
 
 const RewardsNavigator = createStackNavigator(
     {
-        Rewards: { screen: Rewards },
-        Scanner: { screen: Scanner }
+        Rewards: { screen: Rewards }
     },
     {
         initialRouteName: 'Rewards',
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#000000'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 color: '#fff'
-            }
-        }
+            },
+            headerLeft: <Icon
+                name='bars'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        })
     }
 );
 

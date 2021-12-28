@@ -48,25 +48,28 @@ class Rewards extends Component {
         })
         let view
         if (newuser.length < 1) {
-            view = <View style={styles.container}>
-                <Image
-                    source={require('./images/logo.png')}
-                    resizeMode='contain'
-                    style={styles.image} />
-                <Text style={styles.text}>
-                    Thanks for downloading the app. Enjoy 20% off of your visit today.
-                </Text>
-                <View style={styles.icon}>
-                    {newuser}
+            view =
+                <View style={styles.container}>
+                    <Image
+                        source={require('./images/logo.png')}
+                        resizeMode='contain'
+                        style={styles.image} />
+                    <Text style={styles.text}>
+                        Thanks for downloading the app. Enjoy 20% off of your visit today.
+                    </Text>
+                    <View style={styles.icon}>
+                        {newuser}
+                    </View>
+                    <View style={styles.bottomView}>
+                        <TouchableOpacity
+                            onPress={() => navigate('Scanner')}
+                        >
+                            <Text>Redeem Reward</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View style={styles.bottomView}>
-                    <TouchableOpacity
-                        onPress={() => navigate('Scanner')}
-                    >
-                        <Text>Redeem Reward</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+
+
         } else {
             view = <View style={styles.container}>
                 <Image
