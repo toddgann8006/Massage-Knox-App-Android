@@ -54,9 +54,9 @@ class More extends Component {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
-        )
-    }
-}
+        );
+    };
+};
 
 const styles = StyleSheet.create({
     container: {

@@ -3,6 +3,7 @@ import { View, Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from "./HomeComponent";
 import More from "./MoreComponent";
@@ -13,7 +14,6 @@ import Giftcards from "./GiftcardsComponent";
 import Rewards from "./RewardsComponent";
 import Scanner from "./ScannerComponent";
 import { fetchNewuser, fetchRewards } from '../redux/ActionCreators';
-import { connect } from 'react-redux';
 
 const mapDispatchToProps = {
     fetchNewuser,

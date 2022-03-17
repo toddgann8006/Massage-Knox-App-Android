@@ -137,9 +137,12 @@ android {
         applicationId 'com.toddgann8006.massageknox'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 27
-        versionName "1.27.0"
+        versionCode 32
+        versionName "1.32.0"
     }
+    packagingOptions {
+    exclude 'META-INF/DEPENDENCIES'
+}
     splits {
         abi {
             reset()

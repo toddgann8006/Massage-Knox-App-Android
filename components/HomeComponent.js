@@ -3,13 +3,15 @@ import { ScrollView, View, Image, StyleSheet, TouchableOpacity, Alert } from 're
 import { Text } from 'react-native-elements';
 import { connect } from 'react-redux';
 import InputValidation from 'react-native-input-validation';
+import Loading from "./LoadingComponent";
 import { postEmail, resEmail, fetchNewuser, postUser, fetchRewards, toggleModalOff } from '../redux/ActionCreators';
 
 const mapStatetoProps = state => {
     return {
         email: state.email,
         newuser: state.newuser,
-        modal: state.modal
+        modal: state.modal,
+        rewards: state.rewards
     };
 };
 
@@ -33,34 +35,48 @@ class Home extends Component {
     componentDidMount() {
         this.props.fetchNewuser();
         this.props.fetchRewards();
-    }
+    };
 
     componentDidUpdate(prevProps) {
         if (this.props.email !== prevProps.email) {
             this.props.fetchNewuser();
             this.props.fetchRewards();
         }
-    }
+    };
+
+    // Takes value of email state in Home component and sends it to addEmail in email reducer
+
+    handleEmail() {
+        const { email } = this.state
+        this.props.postEmail(email.toLowerCase());
+    };
+
+    // If user confirms this is the correct email, this sends POST request with the email value to the server 
 
     handleNewuser() {
         const email = this.state.email.toLowerCase()
         this.props.postUser(email);
         this.props.toggleModalOff();
-    }
+    };
 
-    handleEmail() {
-        const { email } = this.state
-        this.props.postEmail(email.toLowerCase());
-    }
+    // If user hits cancel on alert, this allows them to enter a different email and sets the email state in Home component to empty
 
     resetEmail() {
         this.setState({ email: "" })
         this.props.resEmail();
-    }
+    };
 
     render() {
         const modal = this.props.modal.showModal
+        const email = this.props.email;
+        const rewards = this.props.rewards;
+        const newuser = this.props.newuser;
         let homescreen
+        if (email.isLoading || rewards.isLoading || newuser.isLoading) {
+            return (
+                <Loading />
+            );
+        }
         if (modal === true) {
             homescreen =
                 <View style={styles.modal}>
@@ -148,8 +164,8 @@ class Home extends Component {
                 {homescreen}
             </ScrollView >
         )
-    }
-}
+    };
+};
 
 const styles = StyleSheet.create({
     container: {

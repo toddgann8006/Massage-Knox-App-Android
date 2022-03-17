@@ -52,9 +52,9 @@ class Appointments extends Component {
                     </View>
                 </View>
             </ScrollView>
-        )
-    }
-}
+        );
+    };
+};
 
 const styles = StyleSheet.create({
     container: {
