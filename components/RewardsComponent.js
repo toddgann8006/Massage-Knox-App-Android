@@ -147,24 +147,6 @@ class Rewards extends Component {
             );
         };
 
-        if (email.errMess) {
-            return (
-                <Text>{email.errMess}</Text>
-            );
-        };
-
-        if (rewards.errMess) {
-            return (
-                <Text>{rewards.errMess}</Text>
-            );
-        };
-
-        if (newuser.errMess) {
-            return (
-                <Text>{newuser.errMess}</Text>
-            );
-        };
-
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.view}>
