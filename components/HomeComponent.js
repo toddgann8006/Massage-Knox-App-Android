@@ -82,8 +82,8 @@ class Home extends Component {
                 validEmail: false,
                 emailError: "Invalid email address."
             });
-        }
-    }
+        };
+    };
 
     render() {
         const modal = this.props.modal.showModal

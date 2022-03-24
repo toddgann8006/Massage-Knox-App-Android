@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { TouchableOpacity, Text, View, StyleSheet, Image, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { withNavigationFocus } from 'react-navigation';
 import Loading from './LoadingComponent';
+import { fetchNewuser, fetchRewards } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -11,6 +13,11 @@ const mapStateToProps = state => {
         email: state.email
     };
 };
+
+const mapDispatchToProps = {
+    fetchNewuser: () => (fetchNewuser()),
+    fetchRewards: () => (fetchRewards())
+}
 
 // Sets the text box in Rewards component. This is determined by if the user is registered, if they are a new user, and if they have any rewards currently
 
@@ -104,6 +111,14 @@ class Rewards extends Component {
     constructor(props) {
         super(props);
     }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.isFocused !== this.props.isFocused) {
+            this.props.fetchNewuser();
+            this.props.fetchRewards();
+        };
+    };
+
     render() {
         const email = this.props.email;
         const rewards = this.props.rewards;
@@ -130,7 +145,26 @@ class Rewards extends Component {
             return (
                 <Loading />
             );
-        }
+        };
+
+        if (email.errMess) {
+            return (
+                <Text>{email.errMess}</Text>
+            );
+        };
+
+        if (rewards.errMess) {
+            return (
+                <Text>{rewards.errMess}</Text>
+            );
+        };
+
+        if (newuser.errMess) {
+            return (
+                <Text>{newuser.errMess}</Text>
+            );
+        };
+
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.view}>
@@ -247,4 +281,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(mapStateToProps)(Rewards);
+export default withNavigationFocus(connect(mapStateToProps, mapDispatchToProps)(Rewards));

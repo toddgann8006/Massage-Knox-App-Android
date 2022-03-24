@@ -15,9 +15,9 @@ export const newuser = (state = {
 
         // Adds reward to newuser array in state when QR code is scanned and first reward is redeemed
 
-        case ActionTypes.ADD_NEWUSER_REWARD:
-            const newuserReward = action.payload;
-            return { ...state, newuser: state.newuser.concat(newuserReward) };
+        // case ActionTypes.ADD_NEWUSER_REWARD:
+        //     const newuserReward = action.payload;
+        //     return { ...state, newuser: state.newuser.concat(newuserReward) };
 
         case ActionTypes.NEWUSER_LOADING:
             return { ...state, isLoading: true, errMess: null, newuser: [] };
