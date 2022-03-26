@@ -29,7 +29,7 @@ export const postUser = email => dispatch => {
         )
         .then(response => response.json())
         .then(email => {
-            dispatch(addEmail(email));
+            dispatch(addEmail(email.email));
         })
         .catch(error => dispatch(emailFailed(error.message)));
 };
@@ -128,16 +128,16 @@ export const postNewuser = newuser => (dispatch, getState) => {
             error => { throw error; }
         )
         .then(response => response.json())
-        // .then(dispatch(addNewuserReward(newUserReward)))
-        .catch(error => dispatch(newuserFailed(error.message)))
+        .then(dispatch(addNewuserReward(newUserReward)))
+        .catch(error => dispatch(rewardsFailed(error.message)))
 };
 
 // Takes dispatch from postNewuser and adds to newuser array in newuser reducer
 
-// export const addNewuserReward = newuser => ({
-//     type: ActionTypes.ADD_NEWUSER_REWARD,
-//     payload: newuser
-// });
+export const addNewuserReward = newuser => ({
+    type: ActionTypes.ADD_NEWUSER_REWARD,
+    payload: newuser
+});
 
 export const newuserLoading = () => ({
     type: ActionTypes.NEWUSER_LOADING
@@ -184,7 +184,7 @@ export const addRewards = reward => ({
 
 // Sends PUT request to the server to add to rewards array and dispatches to addReward
 
-export const postReward = reward => (getState, dispatch) => {
+export const postReward = reward => (dispatch, getState) => {
     const newReward = reward
 
     const { email } = getState().email;
@@ -204,16 +204,16 @@ export const postReward = reward => (getState, dispatch) => {
             error => { throw error; }
         )
         .then(response => response.json())
-        // .then(dispatch(addReward(newReward)))
+        .then(dispatch(addReward(newReward)))
         .catch(error => dispatch(userFailed(error.message)))
 };
 
 // Takes dispatch from postReward and adds it to the rewards array in rewards reducer
 
-// export const addReward = reward => ({
-//     type: ActionTypes.ADD_REWARD,
-//     payload: reward
-// });
+export const addReward = reward => ({
+    type: ActionTypes.ADD_REWARD,
+    payload: reward
+});
 
 //Sends a delete request to the server to set the rewards array to empty and sends a dispatch to resetReward
 
@@ -235,16 +235,16 @@ export const postReset = () => (dispatch, getState) => {
             error => { throw error; }
         )
         .then(response => response.json())
-        // .then(dispatch(resetReward()))
+        .then(dispatch(resetReward()))
         .catch(error => dispatch(rewardsFailed(error.message)))
 };
 
 // Receives dispatch from postReset and sets the rewards array to empty in rewards reducer
 
-// export const resetReward = reset => ({
-//     type: ActionTypes.RESET_REWARD,
-//     payload: reset
-// });
+export const resetReward = reset => ({
+    type: ActionTypes.RESET_REWARD,
+    payload: reset
+});
 
 export const rewardsLoading = () => ({
     type: ActionTypes.REWARDS_LOADING

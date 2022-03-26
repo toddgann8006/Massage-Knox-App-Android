@@ -17,7 +17,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     fetchNewuser: () => (fetchNewuser()),
     fetchRewards: () => (fetchRewards())
-}
+};
 
 // Sets the text box in Rewards component. This is determined by if the user is registered, if they are a new user, and if they have any rewards currently
 
@@ -30,7 +30,7 @@ function RenderText(props) {
         return (
             <View style={styles.textContainer}>
                 <Text style={styles.text}>
-                    Please register on the Home Screen before receiving rewards.
+                    Please register your email before receiving rewards.
                 </Text>
             </View>
         );
@@ -70,7 +70,7 @@ function RenderButton(props) {
         return (
             <View style={styles.bottomViewRegister}>
                 <TouchableOpacity
-                    onPress={() => navigate('Home')}
+                    onPress={() => navigate('Register')}
                 >
                     <Text style={styles.button}>
                         Register
@@ -112,6 +112,8 @@ class Rewards extends Component {
         super(props);
     }
 
+    // Fetch Newuser and Rewards array from server when component is focused. 
+
     componentDidUpdate(prevProps) {
         if (prevProps.isFocused !== this.props.isFocused) {
             this.props.fetchNewuser();
@@ -120,10 +122,18 @@ class Rewards extends Component {
     };
 
     render() {
-        const email = this.props.email;
-        const rewards = this.props.rewards;
-        const newuser = this.props.newuser;
+        const newuser = this.props.newuser
+        const email = this.props.email
+        const rewards = this.props.rewards
         const { navigate } = this.props.navigation;
+        let errMessage
+        if (email.errMess) {
+            errMessage = email.errMess
+        } if (rewards.errMess) {
+            errMessage = rewards.errMess
+        } if (newuser.errMess) {
+            errMessage = newuser.errMess
+        }
 
         // Maps over all the rewards in the rewards array, received as props from rewards reducer, and displays a heart icon for each one. This lets user know how many rewards they currently have.
 
@@ -138,13 +148,35 @@ class Rewards extends Component {
                     key={i}
                     size={14}
                 />
-
             );
         });
+
         if (email.isLoading || rewards.isLoading || newuser.isLoading) {
             return (
                 <Loading />
             );
+        };
+
+        if (email.email.length > 0) {
+            console.log(email)
+            if (email.errMess || rewards.errMess || newuser.errMess) {
+                return (
+                    <ScrollView style={styles.container}>
+                        <View style={styles.view}>
+                            <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                            <View style={styles.bottomViewRegister}>
+                                <TouchableOpacity
+                                    onPress={() => navigate('Home')}
+                                >
+                                    <Text>
+                                        Go Back
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </ScrollView>
+                )
+            };
         };
 
         return (
@@ -260,7 +292,17 @@ const styles = StyleSheet.create({
         fontSize: 17,
         alignItems: 'center',
         paddingLeft: 10
-    }
+    },
+    errorButton: {
+        backgroundColor: 'yellow',
+        width: '70%',
+        height: 40,
+        marginTop: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 30,
+        marginBottom: 20
+    },
 });
 
 export default withNavigationFocus(connect(mapStateToProps, mapDispatchToProps)(Rewards));
