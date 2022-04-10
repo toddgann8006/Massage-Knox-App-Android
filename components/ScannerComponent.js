@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button, SafeAreaView, Alert } from 'react-native';
+import { Text, View, StyleSheet, Button, SafeAreaView, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
@@ -16,17 +16,15 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    postReward: (reward) => (postReward(reward)),
+    postReward: () => (postReward()),
     postReset: () => (postReset()),
-    postNewuser: (newuser) => (postNewuser(newuser))
+    postNewuser: () => (postNewuser())
 };
 
 class Scanner extends Component {
     state = {
         hasCameraPermission: false,
-        scanned: false,
-        reward: 'heart',
-        newuser: 'heart'
+        scanned: false
     };
 
     // Checks if user has given permission to use the camera and waits for a response 
@@ -45,8 +43,7 @@ class Scanner extends Component {
     // After scanning QR code, this redeems initial reward and adds reward to the newuser array in newuser reducer
 
     handleNewuser() {
-        const newuser = this.state.newuser
-        this.props.postNewuser(newuser)
+        this.props.postNewuser()
         Alert.alert(
             'Thanks for downloading the app!',
             'Enjoy 20% off your first service!',
@@ -63,8 +60,7 @@ class Scanner extends Component {
     // This adds reward to rewards array in rewards reducer after scanning QR code.
 
     handleReward() {
-        const reward = this.state.reward
-        this.props.postReward(reward)
+        this.props.postReward()
         Alert.alert(
             'Congratulations',
             'You earned a stamp!',
@@ -115,12 +111,42 @@ class Scanner extends Component {
     render() {
         const { hasCameraPermission, scanned } = this.state;
 
+        const newuser = this.props.newuser;
+        const rewards = this.props.rewards;
+        const { navigate } = this.props.navigation;
+        let errMessage
+        if (rewards.errMess) {
+            errMessage = rewards.errMess
+        } if (newuser.errMess) {
+            errMessage = newuser.errMess
+        }
+
         if (hasCameraPermission === null) {
             return <Text>Requesting for camera permission</Text>;
         }
         if (hasCameraPermission === false) {
             return <Text>No access to camera</Text>;
         }
+
+        if (rewards.errMess || newuser.errMess) {
+            return (
+                <ScrollView style={styles.errorContainer}>
+                    <View style={styles.mainErrorView}>
+                        <Text style={styles.errorText}>Sorry, there was an error. {errMessage}</Text>
+                        <View style={styles.goBack}>
+                            <TouchableOpacity
+                                onPress={() => navigate('Rewards')}
+                            >
+                                <Text>
+                                    Go Back
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </ScrollView>
+            )
+        };
+
         return (
             <SafeAreaView style={styles.container}>
                 <Text style={styles.text}>
@@ -159,7 +185,39 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         textAlign: 'center',
         fontSize: 50
-    }
-})
+    },
+    errorContainer: {
+        flex: 1,
+        marginTop: 0,
+        paddingVertical: 30,
+        backgroundColor: 'rgb(38,32,0)'
+    },
+    goBack: {
+        width: '70%',
+        height: 40,
+        backgroundColor: 'yellow',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        marginBottom: 50,
+        color: 'black',
+        borderRadius: 10,
+        paddingBottom: 10,
+        fontWeight: 'bold',
+        marginTop: 50
+    },
+    mainErrorView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(38,32,0)',
+        marginTop: 0
+    },
+    errorText: {
+        color: 'yellow',
+        fontSize: 16,
+        alignItems: 'center',
+        paddingLeft: 10
+    },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scanner);

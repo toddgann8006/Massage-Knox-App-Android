@@ -48,8 +48,7 @@ const HomeNavigator = createStackNavigator(
 const RewardsNavigator = createStackNavigator(
     {
         Rewards: { screen: Rewards },
-        Scanner: { screen: Scanner },
-        Register: { screen: Register }
+        Scanner: { screen: Scanner }
     },
     {
         initialRouteName: 'Rewards',
@@ -156,13 +155,13 @@ const AppNavigator = createAppContainer(MainNavigator);
 
 class Main extends Component {
 
-    componentDidMount() {
-        const email = this.props.email.email
-        if (email.length > 0) {
-            this.props.fetchNewuser();
-            this.props.fetchRewards();
-        };
-    };
+    // componentDidMount() {
+    //     const email = this.props.email.email
+    //     if (email.length) {
+    //         this.props.fetchNewuser();
+    //         this.props.fetchRewards();
+    //     };
+    // };
 
     render() {
         return (

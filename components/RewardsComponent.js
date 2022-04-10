@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { withNavigationFocus } from 'react-navigation';
 import Loading from './LoadingComponent';
-import { fetchNewuser, fetchRewards } from '../redux/ActionCreators';
+import { resetEmailError, fetchNewuser, fetchRewards } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -16,7 +16,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     fetchNewuser: () => (fetchNewuser()),
-    fetchRewards: () => (fetchRewards())
+    fetchRewards: () => (fetchRewards()),
+    resetEmailError: () => (resetEmailError())
 };
 
 // Sets the text box in Rewards component. This is determined by if the user is registered, if they are a new user, and if they have any rewards currently
@@ -68,7 +69,7 @@ function RenderButton(props) {
 
     if (email === "") {
         return (
-            <View style={styles.bottomViewRegister}>
+            <View style={styles.bottomView}>
                 <TouchableOpacity
                     onPress={() => navigate('Register')}
                 >
@@ -114,18 +115,23 @@ class Rewards extends Component {
 
     // Fetch Newuser and Rewards array from server when component is focused. 
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.isFocused !== this.props.isFocused) {
+    componentDidUpdate(prevProps, props) {
+        if (this.props.email.email.length && prevProps.isFocused !== this.props.isFocused) {
             this.props.fetchNewuser();
             this.props.fetchRewards();
         };
     };
+
+    resetError() {
+        this.props.resetEmailError();
+    }
 
     render() {
         const newuser = this.props.newuser
         const email = this.props.email
         const rewards = this.props.rewards
         const { navigate } = this.props.navigation;
+        const err500 = "Error 500: ";
         let errMessage
         if (email.errMess) {
             errMessage = email.errMess
@@ -151,38 +157,79 @@ class Rewards extends Component {
             );
         });
 
-        if (email.isLoading || rewards.isLoading || newuser.isLoading) {
-            return (
-                <Loading />
-            );
-        };
-
-        if (email.email.length > 0) {
-            console.log(email)
-            if (email.errMess || rewards.errMess || newuser.errMess) {
+        if (email.email.length) {
+            if (email.isLoading || rewards.isLoading || newuser.isLoading) {
                 return (
-                    <ScrollView style={styles.container}>
-                        <View style={styles.view}>
-                            <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
-                            <View style={styles.bottomViewRegister}>
-                                <TouchableOpacity
-                                    onPress={() => navigate('Home')}
-                                >
-                                    <Text>
-                                        Go Back
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </ScrollView>
-                )
+                    <Loading />
+                );
             };
         };
 
+        if (email.email.length > 0) {
+            if (email.errMess) {
+                if (email.errMess === err500) {
+                    return (
+                        <ScrollView style={styles.errorContainer}>
+                            <View style={styles.mainErrorView}>
+                                <Text style={styles.text}>That email has already been registered.</Text>
+                                <View style={styles.errorView}>
+                                    <TouchableOpacity
+                                        onPress={() => this.props.resetEmailError()
+                                        }
+                                    >
+                                        <Text>
+                                            Go Back
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </ScrollView>
+                    )
+                } else {
+                    return (
+                        <ScrollView style={styles.errorContainer}>
+                            <View style={styles.mainErrorView}>
+                                <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                                <View style={styles.errorView}>
+                                    <TouchableOpacity
+                                        onPress={() => this.props.resetEmailError()
+                                        }
+                                    >
+                                        <Text>
+                                            Go Back
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </ScrollView>
+                    )
+                }
+            }
+        };
+
+        if (rewards.errMess || newuser.errMess) {
+            return (
+                <ScrollView style={styles.errorContainer}>
+                    <View style={styles.mainErrorView}>
+                        <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                        <View style={styles.errorView}>
+                            <TouchableOpacity
+                                onPress={() => navigate('Home')}
+                            >
+                                <Text>
+                                    Go Back
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </ScrollView>
+            )
+        };
+
         return (
-            <ScrollView style={styles.container}>
-                <View style={styles.view}>
-                    <View style={styles.imageContainer}>
+            <ScrollView style={styles.container} >
+                <View style={styles.mainView}>
+                    <View style={styles.imageView}>
                         <Image
                             source={require('./images/logo.png')}
                             resizeMode='contain'
@@ -217,25 +264,19 @@ const styles = StyleSheet.create({
         paddingVertical: 30,
         backgroundColor: 'rgb(38,32,0)'
     },
-    view: {
+    mainView: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgb(38,32,0)',
         marginTop: 0
     },
-    icon: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginTop: 30,
-        marginBottom: 60
-    },
     image: {
         width: '80%',
         height: undefined,
         aspectRatio: 1
     },
-    imageContainer: {
+    imageView: {
         borderColor: 'yellow',
         borderStyle: 'solid',
         borderWidth: 2,
@@ -243,6 +284,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: '20%',
         alignItems: 'center',
         width: '90%'
+    },
+    icon: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 30,
+        marginBottom: 60
     },
     button: {
         backgroundColor: 'yellow',
@@ -263,7 +310,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginHorizontal: '10%'
     },
-    bottomViewRegister: {
+    errorView: {
         width: '70%',
         height: 40,
         backgroundColor: 'yellow',
@@ -277,21 +324,34 @@ const styles = StyleSheet.create({
         marginTop: 50
     },
     textContainer: {
-        alignItems: "center",
         borderColor: 'yellow',
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'black',
-        paddingHorizontal: 10,
         marginVertical: 20,
         paddingVertical: 10,
-        marginHorizontal: '5%'
+        paddingHorizontal: '5%',
+        alignItems: 'center',
+        width: '90%'
     },
     text: {
         color: 'yellow',
-        fontSize: 17,
+        fontSize: 16,
         alignItems: 'center',
         paddingLeft: 10
+    },
+    errorContainer: {
+        flex: 1,
+        marginTop: 0,
+        backgroundColor: 'rgb(38,32,0)',
+        paddingVertical: 30
+    },
+    mainErrorView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(38,32,0)',
+        paddingTop: 50
     },
     errorButton: {
         backgroundColor: 'yellow',

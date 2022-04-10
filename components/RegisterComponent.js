@@ -46,6 +46,8 @@ class Register extends Component {
         this.props.toggleModalOff();
     };
 
+    // Sends email to server again if error occured
+
     resetNewuser() {
         const email = this.props.email.email
         this.props.postUser(email);
@@ -82,11 +84,17 @@ class Register extends Component {
         const rewards = this.props.rewards;
         const newuser = this.props.newuser;
         let registerScreen
-        if (email.isLoading || rewards.isLoading || newuser.isLoading) {
-            return (
-                <Loading />
-            );
-        }
+
+        // if (email.email.length) {
+        //     if (email.errMess === null) {
+        //         if (email.isLoading || rewards.isLoading || newuser.isLoading) {
+        //             return (
+        //                 <Loading />
+        //             );
+        //         };
+        //     };
+        // };
+
         if (modal === true) {
             registerScreen =
                 <View style={styles.modal}>
@@ -277,6 +285,6 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         fontSize: 16
     }
-})
+});
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Register);

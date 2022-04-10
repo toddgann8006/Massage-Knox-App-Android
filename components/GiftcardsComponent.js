@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
         paddingLeft: 30
     },
     body: {
-        color: 'white',
+        color: 'yellow',
         marginTop: 20,
         fontSize: 18,
         lineHeight: 30,
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     centertext: {
         textAlign: 'center',
         fontSize: 18,
-        color: 'white'
+        color: 'yellow'
     },
     button: {
         backgroundColor: 'yellow',
