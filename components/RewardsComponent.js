@@ -127,9 +127,9 @@ class Rewards extends Component {
     }
 
     render() {
-        const newuser = this.props.newuser
-        const email = this.props.email
-        const rewards = this.props.rewards
+        const newuser = this.props.newuser;
+        const email = this.props.email;
+        const rewards = this.props.rewards;
         const { navigate } = this.props.navigation;
         const err500 = "Error 500: ";
         let errMessage
@@ -168,7 +168,6 @@ class Rewards extends Component {
         if (email.email.length > 0) {
             if (email.errMess) {
                 if (email.errMess !== err500) {
-
                     return (
                         <ScrollView style={styles.errorContainer}>
                             <View style={styles.mainErrorView}>

@@ -31,9 +31,10 @@ class Home extends Component {
 
     render() {
 
-        const newuser = this.props.newuser
-        const email = this.props.email
-        const rewards = this.props.rewards
+        const newuser = this.props.newuser;
+        const email = this.props.email;
+        const rewards = this.props.rewards;
+        const { navigate } = this.props.navigation;
         const err500 = "Error 500: ";
         let errMessage
         if (email.errMess) {
