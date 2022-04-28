@@ -1,10 +1,100 @@
 import React, { Component } from "react";
 import { ScrollView, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { fetchNewuser, fetchRewards } from '../redux/ActionCreators';
+import Loading from "./LoadingComponent";
+
+const mapStateToProps = state => {
+    return {
+        email: state.email,
+        rewards: state.rewards,
+        newuser: state.newuser
+    };
+};
+
+const mapDispatchToProps = {
+    fetchNewuser,
+    fetchRewards
+};
+
 
 class Home extends Component {
 
+    componentDidMount(props) {
+        const email = this.props.email.email
+        if (email.length) {
+            this.props.fetchNewuser();
+            this.props.fetchRewards();
+        };
+    };
+
     render() {
+
+        const newuser = this.props.newuser
+        const email = this.props.email
+        const rewards = this.props.rewards
+        const err500 = "Error 500: ";
+        let errMessage
+        if (email.errMess) {
+            errMessage = email.errMess
+        } if (rewards.errMess) {
+            errMessage = rewards.errMess
+        } if (newuser.errMess) {
+            errMessage = newuser.errMess
+        }
+
+        if (email.email.length) {
+            if (email.isLoading || rewards.isLoading || newuser.isLoading) {
+                return (
+                    <Loading />
+                );
+            };
+        };
+
+        if (email.email.length > 0) {
+            if (email.errMess) {
+                if (email.errMess !== err500) {
+                    return (
+                        <ScrollView style={styles.errorContainer}>
+                            <View style={styles.mainErrorView}>
+                                <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                                <View style={styles.errorView}>
+                                    <TouchableOpacity
+                                        onPress={() => this.props.resetEmailError()
+                                        }
+                                    >
+                                        <Text>
+                                            Go Back
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </ScrollView>
+                    )
+                }
+            }
+        };
+
+        if (rewards.errMess || newuser.errMess) {
+            return (
+                <ScrollView style={styles.errorContainer}>
+                    <View style={styles.mainErrorView}>
+                        <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                        <View style={styles.errorView}>
+                            <TouchableOpacity
+                                onPress={() => navigate('Home')}
+                            >
+                                <Text>
+                                    Go Back
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </ScrollView>
+            )
+        };
+
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.mainView}>
@@ -122,4 +212,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

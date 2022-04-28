@@ -167,25 +167,8 @@ class Rewards extends Component {
 
         if (email.email.length > 0) {
             if (email.errMess) {
-                if (email.errMess === err500) {
-                    return (
-                        <ScrollView style={styles.errorContainer}>
-                            <View style={styles.mainErrorView}>
-                                <Text style={styles.text}>That email has already been registered.</Text>
-                                <View style={styles.errorView}>
-                                    <TouchableOpacity
-                                        onPress={() => this.props.resetEmailError()
-                                        }
-                                    >
-                                        <Text>
-                                            Go Back
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </ScrollView>
-                    )
-                } else {
+                if (email.errMess !== err500) {
+
                     return (
                         <ScrollView style={styles.errorContainer}>
                             <View style={styles.mainErrorView}>

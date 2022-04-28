@@ -155,13 +155,13 @@ const AppNavigator = createAppContainer(MainNavigator);
 
 class Main extends Component {
 
-    // componentDidMount() {
-    //     const email = this.props.email.email
-    //     if (email.length) {
-    //         this.props.fetchNewuser();
-    //         this.props.fetchRewards();
-    //     };
-    // };
+    componentDidMount(props) {
+        const email = this.props.email.email
+        if (email.length) {
+            this.props.fetchNewuser();
+            this.props.fetchRewards();
+        };
+    };
 
     render() {
         return (
