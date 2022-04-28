@@ -59,11 +59,10 @@ class Home extends Component {
                     return (
                         <ScrollView style={styles.errorContainer}>
                             <View style={styles.mainErrorView}>
-                                <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                                <Text style={styles.errorText}>Sorry, there was an error. {errMessage}</Text>
                                 <View style={styles.errorView}>
                                     <TouchableOpacity
-                                        onPress={() => this.props.resetEmailError()
-                                        }
+                                        onPress={() => navigate('Rewards')}
                                     >
                                         <Text>
                                             Go Back
@@ -81,10 +80,10 @@ class Home extends Component {
             return (
                 <ScrollView style={styles.errorContainer}>
                     <View style={styles.mainErrorView}>
-                        <Text style={styles.text}>Sorry, there was an error. {errMessage}</Text>
+                        <Text style={styles.errorText}>Sorry, there was an error. {errMessage}</Text>
                         <View style={styles.errorView}>
                             <TouchableOpacity
-                                onPress={() => navigate('Home')}
+                                onPress={() => navigate('Rewards')}
                             >
                                 <Text>
                                     Go Back
@@ -148,26 +147,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '90%'
     },
-    errorView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgb(38,32,0)',
-        marginTop: 0
-    },
-    errorView: {
-        width: '70%',
-        height: 40,
-        backgroundColor: 'yellow',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        marginBottom: 50,
-        color: 'black',
-        borderRadius: 10,
-        paddingBottom: 10,
-        fontWeight: 'bold',
-        marginTop: 50
-    },
     text: {
         color: 'black',
         fontSize: 16,
@@ -206,11 +185,26 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         marginBottom: 20
     },
-    emailError: {
-        color: "red",
+    mainErrorView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(38,32,0)',
+        paddingTop: 50
+    },
+    errorView: {
+        width: '70%',
+        height: 40,
+        backgroundColor: 'yellow',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        marginBottom: 50,
+        color: 'black',
+        borderRadius: 10,
         paddingBottom: 10,
-        fontSize: 16
-    }
+        fontWeight: 'bold',
+        marginTop: 50
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
