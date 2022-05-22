@@ -26,7 +26,9 @@ class Contact extends Component {
                             onPress={() => Linking.openURL('mailto:shannoncox@massageknox.com')}
                             style={styles.button}
                         >
-                            <Text style={styles.buttonText}>Email</Text>
+                            <Text style={styles.buttonText}
+                                adjustsFontSizeToFit
+                            >Email</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.textView}>
@@ -49,7 +51,9 @@ class Contact extends Component {
                             })}
                             style={styles.button}
                         >
-                            <Text style={styles.buttonText}>Find Me On Facebook</Text>
+                            <Text style={styles.buttonText}
+                                adjustsFontSizeToFit
+                            >Find Me On Facebook</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

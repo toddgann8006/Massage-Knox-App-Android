@@ -85,16 +85,6 @@ class Register extends Component {
         const newuser = this.props.newuser;
         let registerScreen
 
-        // if (email.email.length) {
-        //     if (email.errMess === null) {
-        //         if (email.isLoading || rewards.isLoading || newuser.isLoading) {
-        //             return (
-        //                 <Loading />
-        //             );
-        //         };
-        //     };
-        // };
-
         if (modal === true) {
             registerScreen =
                 <View style={styles.modal}>
@@ -149,7 +139,9 @@ class Register extends Component {
                                 );
                             }}
                         >
-                            <Text style={styles.buttonText}>
+                            <Text style={styles.buttonText}
+                                adjustsFontSizeToFit
+                            >
                                 Register
                             </Text>
                         </TouchableOpacity>
@@ -177,7 +169,9 @@ class Register extends Component {
                             style={styles.button}
                             onPress={() => this.resetNewuser()}
                         >
-                            <Text style={styles.buttonText}>
+                            <Text style={styles.buttonText}
+                                adjustsFontSizeToFit
+                            >
                                 Reset Email
                             </Text>
                         </TouchableOpacity>
@@ -245,7 +239,7 @@ const styles = StyleSheet.create({
     welcomeTextHome: {
         color: 'black',
         fontSize: 16,
-        paddingBottom: 10
+        paddingBottom: '3%'
     },
     welcome: {
         justifyContent: 'center',
@@ -263,8 +257,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         borderWidth: 1,
         borderStyle: 'solid',
-        marginTop: 30,
-        marginBottom: 15,
+        marginTop: '5%',
+        marginBottom: '1%',
         width: 250,
         height: 50,
         backgroundColor: 'white'
@@ -275,9 +269,9 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'yellow',
-        paddingHorizontal: 10,
-        marginVertical: 20,
-        paddingTop: 10,
+        paddingHorizontal: '3%',
+        marginVertical: '4%',
+        paddingTop: '3%',
         marginHorizontal: '5%'
     },
     emailError: {

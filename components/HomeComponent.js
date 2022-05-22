@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgb(38,32,0)',
-        paddingTop: 50
+        paddingTop: '5%'
     },
     image: {
         width: '80%',
@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'yellow',
-        marginVertical: 20,
-        paddingTop: 10,
+        marginVertical: '5%',
+        paddingTop: '3%',
         paddingHorizontal: '5%',
         alignItems: 'center',
         width: '90%'

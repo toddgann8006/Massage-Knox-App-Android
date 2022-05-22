@@ -23,8 +23,12 @@ class Services extends Component {
                             Hot towels can be included in your service upon request!
                         </Text>
                         <Text style={styles.price}>
-                            30 min: $45 | 45 min: $55 | 60 min: $65 | 90 min: $90 | 120 min: $130
+                            30 min: $45 | 45 min: $55
                         </Text>
+                        <Text style={styles.price}>
+                            60 min: $65 | 90 min: $90
+                        </Text>
+                        <Text style={styles.price}>120 min: $130</Text>
                     </View>
                     <View style={styles.textContainer}>
                         <Text style={styles.smallheader}>
@@ -34,7 +38,10 @@ class Services extends Component {
                             Get comfy and let your tension melt away with this relaxing escape for expectant mothers! If you are currently pregnant, please book this massage. We will still be able to customize as needed.
                         </Text>
                         <Text style={styles.price}>
-                            30 min: $45 | 45 min: $55 | 60 min: $65
+                            30 min: $45 | 45 min: $55
+                        </Text>
+                        <Text style={styles.price}>
+                            60 min: $65
                         </Text>
                     </View>
                 </View>
@@ -55,7 +62,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(38,32,0)',
         marginTop: 0,
         marginBottom: 30,
-        paddingHorizontal: '3%'
+        paddingHorizontal: '1%'
     },
     header: {
         fontSize: 40,
@@ -69,20 +76,20 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
     textContainer: {
-        alignItems: "center",
+        alignItems: "flex-start",
         borderColor: 'yellow',
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'black',
-        paddingHorizontal: '10%',
+        paddingHorizontal: '5%',
         marginVertical: 20,
-        paddingVertical: 10,
+        paddingVertical: '1%',
         marginHorizontal: '5%'
     },
     smallheader: {
         fontSize: 25,
         color: 'yellow',
-        marginTop: 30
+        marginTop: '4%'
     },
     body: {
         color: 'yellow',
@@ -91,7 +98,7 @@ const styles = StyleSheet.create({
         lineHeight: 30
     },
     price: {
-        color: 'yellow',
+        color: 'white',
         marginTop: 20,
         fontSize: 18,
         lineHeight: 30,

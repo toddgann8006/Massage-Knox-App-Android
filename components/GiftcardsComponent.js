@@ -45,7 +45,9 @@ class Giftcards extends Component {
                             onPress={() => Linking.openURL('https://squareup.com/gift/4CSXHA6RBTHT0/order')}
                             style={styles.button}
                         >
-                            <Text style={styles.buttonText}>Purchase</Text>
+                            <Text style={styles.buttonText}
+                                adjustsFontSizeToFit
+                            >Purchase</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.registerView}>
@@ -56,7 +58,9 @@ class Giftcards extends Component {
                             onPress={() => Linking.openURL('mailto:shannoncox@massageknox.com')}
                             style={styles.button}
                         >
-                            <Text style={styles.buttonText}>Email</Text>
+                            <Text style={styles.buttonText}
+                                adjustsFontSizeToFit
+                            >Email</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -83,7 +87,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
     view: {
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: 'rgb(38,32,0)',
         marginTop: 0,
@@ -91,14 +95,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: '3%'
     },
     textContainer: {
-        alignItems: "center",
+        alignItems: "flex-start",
         borderColor: 'yellow',
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'black',
-        paddingHorizontal: '10%',
-        marginVertical: 20,
-        paddingVertical: 10,
+        paddingHorizontal: '3%',
+        marginVertical: '3%',
+        paddingVertical: '1%',
         marginHorizontal: '5%'
     },
     registerView: {
@@ -106,10 +110,10 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'black',
-        paddingHorizontal: '20%',
+        paddingHorizontal: '5%',
         alignItems: 'center',
         width: '90%',
-        marginTop: 20
+        marginTop: '5%'
     },
     yellowtext: {
         fontSize: 30,
@@ -121,14 +125,14 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: 'yellow',
         marginTop: 30,
-        paddingLeft: 30
+        paddingLeft: '3%'
     },
     body: {
         color: 'yellow',
         marginTop: 20,
         fontSize: 18,
         lineHeight: 30,
-        paddingLeft: 30
+        paddingLeft: '3%'
     },
     centertext: {
         textAlign: 'center',

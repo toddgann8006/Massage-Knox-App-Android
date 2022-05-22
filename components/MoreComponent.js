@@ -12,7 +12,9 @@ class More extends Component {
                         onPress={() => navigate('Register')}
                         style={styles.button}
                     >
-                        <Text style={styles.buttonText}>
+                        <Text style={styles.buttonText}
+                            adjustsFontSizeToFit
+                        >
                             Register
                         </Text>
                     </TouchableOpacity>
@@ -22,7 +24,9 @@ class More extends Component {
                         onPress={() => navigate('Contact')}
                         style={styles.button}
                     >
-                        <Text style={styles.buttonText}>
+                        <Text style={styles.buttonText}
+                            adjustsFontSizeToFit
+                        >
                             Contact
                         </Text>
                     </TouchableOpacity>
@@ -38,7 +42,9 @@ class More extends Component {
                         })}
                         style={styles.button}
                     >
-                        <Text style={styles.buttonText}>
+                        <Text style={styles.buttonText}
+                            adjustsFontSizeToFit
+                        >
                             Facebook
                         </Text>
                     </TouchableOpacity>
@@ -48,7 +54,9 @@ class More extends Component {
                         onPress={() => navigate('Services')}
                         style={styles.button}
                     >
-                        <Text style={styles.buttonText}>
+                        <Text style={styles.buttonText}
+                            adjustsFontSizeToFit
+                        >
                             Services
                         </Text>
                     </TouchableOpacity>
@@ -58,7 +66,9 @@ class More extends Component {
                         onPress={() => navigate('Giftcards')}
                         style={styles.button}
                     >
-                        <Text style={styles.buttonText}>
+                        <Text style={styles.buttonText}
+                            adjustsFontSizeToFit
+                        >
                             Gift Cards
                         </Text>
                     </TouchableOpacity>

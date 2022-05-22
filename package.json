@@ -37,6 +37,7 @@
     "react-native-screens": "~3.0.0",
     "react-native-swiper": "^1.6.0",
     "react-native-unimodules": "~0.13.3",
+    "react-native-viewport-units": "^0.0.5",
     "react-native-web": "0.17.1",
     "react-navigation": "4",
     "react-navigation-drawer": "^2.7.1",

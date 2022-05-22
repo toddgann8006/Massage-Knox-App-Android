@@ -73,7 +73,9 @@ function RenderButton(props) {
                 <TouchableOpacity
                     onPress={() => navigate('Register')}
                 >
-                    <Text style={styles.button}>
+                    <Text style={styles.button}
+                        adjustsFontSizeToFit
+                    >
                         Register
                     </Text>
                 </TouchableOpacity>
@@ -88,7 +90,9 @@ function RenderButton(props) {
                 <TouchableOpacity
                     onPress={() => navigate('Scanner')}
                 >
-                    <Text style={styles.button}>Redeem Reward</Text>
+                    <Text style={styles.button}
+                        adjustsFontSizeToFit
+                    >Redeem Reward</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -101,7 +105,9 @@ function RenderButton(props) {
                 <TouchableOpacity
                     onPress={() => navigate('Scanner')}
                 >
-                    <Text style={styles.button}>Stamp Card</Text>
+                    <Text style={styles.button}
+                        adjustsFontSizeToFit
+                    >Stamp Card</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -310,9 +316,9 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 2,
         backgroundColor: 'black',
-        marginVertical: 20,
-        paddingVertical: 10,
-        paddingHorizontal: '5%',
+        marginVertical: '4%',
+        paddingVertical: '3%',
+        paddingHorizontal: '4%',
         alignItems: 'center',
         width: '90%'
     },
@@ -320,7 +326,7 @@ const styles = StyleSheet.create({
         color: 'yellow',
         fontSize: 16,
         alignItems: 'center',
-        paddingLeft: 10
+        paddingLeft: '2%'
     },
     errorContainer: {
         flex: 1,
