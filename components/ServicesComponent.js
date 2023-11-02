@@ -22,13 +22,6 @@ class Services extends Component {
                         <Text style={styles.body}>
                             Hot towels can be included in your service upon request!
                         </Text>
-                        <Text style={styles.price}>
-                            30 min: $45 | 45 min: $55
-                        </Text>
-                        <Text style={styles.price}>
-                            60 min: $65 | 90 min: $90
-                        </Text>
-                        <Text style={styles.price}>120 min: $130</Text>
                     </View>
                     <View style={styles.textContainer}>
                         <Text style={styles.smallheader}>
@@ -36,12 +29,6 @@ class Services extends Component {
                         </Text>
                         <Text style={styles.body}>
                             Get comfy and let your tension melt away with this relaxing escape for expectant mothers! If you are currently pregnant, please book this massage. We will still be able to customize as needed.
-                        </Text>
-                        <Text style={styles.price}>
-                            30 min: $45 | 45 min: $55
-                        </Text>
-                        <Text style={styles.price}>
-                            60 min: $65
                         </Text>
                     </View>
                 </View>

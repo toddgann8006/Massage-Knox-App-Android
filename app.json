@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Massage Knox",
-    "slug": "Massage Knox",
+    "name": "massage-knox",
+    "slug": "massage-knox",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Text, View, StyleSheet, Image, ScrollView } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Fontisto } from '@expo/vector-icons';
 import { connect } from 'react-redux';
-import { withNavigationFocus } from 'react-navigation';
+import { withNavigation } from '@react-navigation/compat';
 import Loading from './LoadingComponent';
 import { resetEmailError, fetchNewuser, fetchRewards } from '../redux/ActionCreators';
 
@@ -149,17 +149,11 @@ class Rewards extends Component {
 
         // Maps over all the rewards in the rewards array, received as props from rewards reducer, and displays a heart icon for each one. This lets user know how many rewards they currently have.
 
-        const reward = this.props.rewards.rewards.map((reward, i) => {
+        const rewardIcons = this.props.rewards.rewards.map((reward, i) => {
             return (
-                <Icon
-                    name={reward}
-                    type='font-awesome'
-                    color='#FFFF00'
-                    raised
-                    reverse
-                    key={i}
-                    size={14}
-                />
+                <View style={styles.iconContainer} key={i}>
+                    <Fontisto name={reward} size={14} color="#FFF" />
+                </View>
             );
         });
 
@@ -229,8 +223,8 @@ class Rewards extends Component {
                         rewards={this.props.rewards.rewards}
                         email={this.props.email.email}
                     />
-                    <View style={styles.icon}>
-                        {reward}
+                    <View style={styles.iconsContainer}>
+                        {rewardIcons}
                     </View>
                     <RenderButton
                         newuser={this.props.newuser.newuser}
@@ -351,6 +345,17 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         marginBottom: 20
     },
+    iconsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    iconContainer: {
+        margin: 5,
+        marginBottom: 20,
+        backgroundColor: 'yellow', // Background color for the raised effect
+        borderRadius: 50, // Border radius for the raised effect
+        padding: 8,
+    }
 });
 
-export default withNavigationFocus(connect(mapStateToProps, mapDispatchToProps)(Rewards));
+export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(Rewards));

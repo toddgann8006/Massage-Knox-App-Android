@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { View, Platform } from 'react-native';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { connect } from 'react-redux';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import Home from "./HomeComponent";
 import More from "./MoreComponent";
 import Contact from "./ContactComponent";
@@ -27,153 +27,135 @@ const mapDispatchToProps = {
     fetchRewards
 };
 
-const HomeNavigator = createStackNavigator(
-    {
-        Home: { screen: Home }
-    },
-    {
-        initialRouteName: 'Home',
-        defaultNavigationOptions: () => ({
-            headerStyle: {
-                backgroundColor: '#000000'
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: '#fff'
-            }
-        })
-    }
-);
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-const RewardsNavigator = createStackNavigator(
-    {
-        Rewards: { screen: Rewards },
-        Scanner: { screen: Scanner }
-    },
-    {
-        initialRouteName: 'Rewards',
-        defaultNavigationOptions: () => ({
-            headerStyle: {
-                backgroundColor: '#000000'
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: '#fff'
-            }
-        })
-    }
-);
-
-const AppointmentsNavigator = createStackNavigator(
-    {
-        Appointments: { screen: Appointments }
-    },
-    {
-        initialRouteName: 'Appointments',
-        defaultNavigationOptions: () => ({
-            headerStyle: {
-                backgroundColor: '#000000'
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: '#fff'
-            }
-        })
-    }
-);
-
-const MoreNavigator = createStackNavigator(
-    {
-        More: { screen: More },
-        Register: { screen: Register },
-        Contact: { screen: Contact },
-        Services: { screen: Services },
-        Giftcards: { screen: Giftcards }
-    },
-    {
-        initialRouteName: 'More',
-        defaultNavigationOptions: () => ({
-            headerStyle: {
-                backgroundColor: '#000000'
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: '#fff'
-            }
-        })
-    }
-);
-
-const MainNavigator = createBottomTabNavigator(
-    {
-        Home: { screen: HomeNavigator },
-        Rewards: { screen: RewardsNavigator },
-        Appointments: { screen: AppointmentsNavigator },
-        More: { screen: MoreNavigator }
-    },
-    {
-        defaultNavigationOptions: ({ navigation }) => ({
-            tabBarIcon: ({ focused, tintColor }) => {
-                const { routeName } = navigation.state;
-                let IconComponent = Ionicons;
-                let iconName;
-                if (routeName === 'Home') {
-                    iconName = `home${focused ?
-                        '' : '-outline'
-                        }`;
-                } else if (routeName === 'Rewards') {
-                    iconName = `cash${focused ?
-                        '' : '-outline'
-                        }`;
-                } else if (routeName === 'Appointments') {
-                    iconName = `calendar${focused ?
-                        '' : '-outline'
-                        }`;
-                } else if (routeName === 'More') {
-                    iconName = `reorder-four${focused ?
-                        '' : '-outline'
-                        }`;
+const HomeNavigator = () => {
+    return (
+        <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: '#000000'
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    color: '#fff'
                 }
-                return <IconComponent
-                    name={iconName}
-                    size={25}
-                    color={tintColor}
-                />;
-            },
-        }),
-        tabBarOptions: {
-            activeTintColor: 'black',
-            inactiveTintColor: 'gray',
-            style: {
-                backgroundColor: 'yellow',
-            },
-        },
-    }
-);
+            }}
+        >
+            <Stack.Screen name="Home" component={Home} />
+        </Stack.Navigator>
+    );
+};
 
-const AppNavigator = createAppContainer(MainNavigator);
+const RewardsNavigator = () => {
+    return (
+        <Stack.Navigator
+            initialRouteName="Rewards"
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: '#000000'
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    color: '#fff'
+                }
+            }}
+        >
+            <Stack.Screen name="Rewards" component={Rewards} />
+            <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen name="Scanner" component={Scanner} />
+        </Stack.Navigator>
+    );
+};
+
+const AppointmentsNavigator = () => {
+    return (
+        <Stack.Navigator
+            initialRouteName="Appointments"
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: '#000000'
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    color: '#fff'
+                }
+            }}
+        >
+            <Stack.Screen name="Appointments" component={Appointments} />
+        </Stack.Navigator>
+    );
+};
+
+const MoreNavigator = () => {
+    return (
+        <Stack.Navigator
+            initialRouteName="More"
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: '#000000'
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    color: '#fff'
+                }
+            }}
+        >
+            <Stack.Screen name="More" component={More} />
+            <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen name="Contact" component={Contact} />
+            <Stack.Screen name="Services" component={Services} />
+            <Stack.Screen name="Giftcards" component={Giftcards} />
+        </Stack.Navigator>
+    );
+};
 
 class Main extends Component {
-
-    componentDidMount(props) {
-        const email = this.props.email.email
+    componentDidMount() {
+        const email = this.props.email.email;
         if (email.length) {
             this.props.fetchNewuser();
             this.props.fetchRewards();
-        };
-    };
+        }
+    }
 
     render() {
         return (
-            <View
-                style={{
-                    flex: 1,
-                    paddingTop: Platform.OS === 'ios' ? 0 : 30,
-                    marginLeft: Platform.OS === 'ios' ? 0 : 20,
-                    marginRight: Platform.OS === 'ios' ? 0 : 20
-                }}>
-                <AppNavigator />
-            </View>
+            <NavigationContainer>
+                <Tab.Navigator
+                    screenOptions={({ route }) => ({
+                        tabBarIcon: ({ focused, color, size }) => {
+                            let iconName;
+
+                            if (route.name === 'Home') {
+                                iconName = focused ? 'md-home' : 'md-home-outline';
+                            } else if (route.name === 'Rewards') {
+                                iconName = focused ? 'md-cash' : 'md-cash-outline';
+                            } else if (route.name === 'Appointments') {
+                                iconName = focused ? 'md-calendar' : 'md-calendar-outline';
+                            } else if (route.name === 'More') {
+                                iconName = focused ? 'md-reorder-four' : 'md-reorder-four-outline';
+                            }
+
+                            return <Ionicons name={iconName} size={size} color={color} />;
+                        },
+                    })}
+                    tabBarOptions={{
+                        activeTintColor: 'black',
+                        inactiveTintColor: 'gray',
+                        style: {
+                            backgroundColor: 'yellow',
+                        },
+                    }}
+                >
+                    <Tab.Screen name="Home" component={HomeNavigator} />
+                    <Tab.Screen name="Rewards" component={RewardsNavigator} />
+                    <Tab.Screen name="Appointments" component={AppointmentsNavigator} />
+                    <Tab.Screen name="More" component={MoreNavigator} />
+                </Tab.Navigator>
+            </NavigationContainer>
         );
     }
 }

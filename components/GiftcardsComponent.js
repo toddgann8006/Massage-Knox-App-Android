@@ -17,26 +17,6 @@ class Giftcards extends Component {
                             Click the button below to purchase  e-Gift Cards. You will be given the option to email your voucher to yourself or someone else as a gift.  And you can even choose the date it is sent to your loved one so as not to ruin the surprise! Or print it and gift it in person! If you are sending it to yourself or want to print it to give in person, click the box that says "I want to send this to myself."  Your receipt and the gift card will be sent in separate emails so make sure to look for both as the actual gift card contains the redemption code.
                         </Text>
                     </View>
-                    <View style={styles.textContainer}>
-                        <Text style={styles.smallheader}>
-                            Massage prices are as follows:
-                        </Text>
-                        <Text style={styles.body}>
-                            30 minutes: $45
-                        </Text>
-                        <Text style={styles.body}>
-                            45 minutes: $55
-                        </Text>
-                        <Text style={styles.body}>
-                            60 minutes: $65
-                        </Text>
-                        <Text style={styles.body}>
-                            90 minutes: $90
-                        </Text>
-                        <Text style={styles.body}>
-                            120 minutes: $130
-                        </Text>
-                    </View>
                     <View style={styles.registerView}>
                         <Text style={styles.body}>
                             Give the gift of massage therapy by clicking the button below!

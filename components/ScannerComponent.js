@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Button, SafeAreaView, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { QR_CODE } from '@env';
 import { postReward } from '../redux/ActionCreators';
 import { postReset } from '../redux/ActionCreators';
@@ -29,14 +29,14 @@ class Scanner extends Component {
 
     // Checks if user has given permission to use the camera and waits for a response 
 
-    async componentDidMount() {
-        this.getPermissionsAsync();
-    };
+    componentDidMount() {
+        this.getBarCodeScannerPermissions();
+    }
 
     // After receiving permission, this sets hasCameraPermission state granted.
 
-    getPermissionsAsync = async () => {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    getBarCodeScannerPermissions = async () => {
+        const { status } = await BarCodeScanner.requestPermissionsAsync();
         this.setState({ hasCameraPermission: status === 'granted' });
     };
 

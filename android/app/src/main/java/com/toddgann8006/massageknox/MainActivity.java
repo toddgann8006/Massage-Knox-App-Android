@@ -7,37 +7,32 @@ import androidx.annotation.NonNull;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
+import com.facebook.react.defaults.DefaultReactActivityDelegate;
 import com.google.android.gms.tasks.Task;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+import expo.modules.ReactActivityDelegateWrapper;
 
-import expo.modules.splashscreen.singletons.SplashScreen;
-import expo.modules.splashscreen.SplashScreenImageResizeMode;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.android.gms.tasks.OnCompleteListener;
 import android.util.Log;
 import android.widget.Toast;
 
-import android.content.Intent;
-
 public class MainActivity extends ReactActivity {
     private static final String TAG = "MainActivity";
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
 
-      FirebaseMessaging.getInstance().subscribeToTopic("all")
-              .addOnCompleteListener(task -> {
-                  String msg = getString(R.string.msg_subscribed);
-                  if (!task.isSuccessful()) {
-                      msg = getString(R.string.msg_subscribe_failed);
-                  }
-                  Log.d(TAG, msg);
-              });
-    super.onCreate(null);
-    // SplashScreen.show(...) has to be called after super.onCreate(...)
-    // Below line is handled by '@expo/configure-splash-screen' command and it's discouraged to modify it manually
-    SplashScreen.show(this, SplashScreenImageResizeMode.CONTAIN, ReactRootView.class, false);
-  }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
+        FirebaseMessaging.getInstance().subscribeToTopic("all")
+                .addOnCompleteListener(task -> {
+                    String msg = getString(R.string.msg_subscribed);
+                    if (!task.isSuccessful()) {
+                        msg = getString(R.string.msg_subscribe_failed);
+                    }
+                    Log.d(TAG, msg);
+                });
+        super.onCreate(savedInstanceState);
+    }
 
     /**
      * Returns the name of the main component registered from JavaScript.
@@ -48,20 +43,22 @@ public class MainActivity extends ReactActivity {
         return "main";
     }
 
-    @Override
-    protected ReactActivityDelegate createReactActivityDelegate() {
-        return new ReactActivityDelegate(this, getMainComponentName()) {
-            @Override
-            protected ReactRootView createRootView() {
-                return new RNGestureHandlerEnabledRootView(MainActivity.this);
-            }
-        };
-    }
+    public static class MainActivityDelegate extends ReactActivityDelegate {
+        public MainActivityDelegate(ReactActivity activity, String mainComponentName) {
+            super(activity, mainComponentName);
+        }
 
-    @Override
-    public void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        setIntent(intent);
-        intent.putExtras(this.getIntent());
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
+        protected ReactRootView createRootView() {
+            ReactRootView reactRootView = new ReactRootView(getContext());
+            // If you opted-in for the New Architecture, we enable the Fabric Renderer.
+            reactRootView.setIsFabric(BuildConfig.IS_NEW_ARCHITECTURE_ENABLED);
+            return reactRootView;
+        }
     }
 }
